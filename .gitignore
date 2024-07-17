@@ -1,0 +1,6 @@
+venv/
+.Rproj.user
+.Rhistory
+datapackages/
+.env
+docs

@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "name": "test_name1",
+  "levelname": "ERROR",
+  "timestamp": "2024-07-17T12:34:56+00:00",
+  "message": "The value of X is not less than 0 for base",
+  "valid": true,
+  "packages": ["package1", "package2"],
+  "resources": [
+    {"package": "package1", "resource": "resource1"},
+    {"package": "package2", "resource": "resource1"}
+  ],
+  "ruleslanguage": "R",
+  "rulescode": "test code here",
+  "result": {
+    "table1": {
+      "columns": ["programa_cod", "area_tematica_cod_count"],
+      "data": [
+        [1, 1],
+        [2, 1],
+        [3, 1],
+        [4, 1],
+        [6, 1],
+        [7, 1],
+        [8, 1],
+        [9, 1],
+        [10, 1],
+        [11, 1]
+      ]
+    },
+    "table2": {
+      "columns": ["programa_cod", "area_tematica_cod_count", "description", "status"],
+      "data": [
+        [1, 1, "Description 1", "active"],
+        [2, 1, "Description 2", "active"],
+        [3, 1, "Description 3", "inactive"],
+        [4, 1, "Description 4", "inactive"],
+        [6, 1, "Description 6", "active"],
+        [7, 1, "Description 7", "active"],
+        [8, 1, "Description 8", "inactive"],
+        [9, 1, "Description 9", "inactive"],
+        [10, 1, "Description 10", "active"],
+        [11, 1, "Description 11", "active"]
+      ]
+    }
+  }
+}

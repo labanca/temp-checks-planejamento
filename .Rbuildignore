@@ -1,0 +1,11 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^venv$
+^checks$
+^datapackages
+^docs
+^logs$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
