@@ -42,7 +42,10 @@ as_accounting <- function(df, pattern = "^vlr_|^vl_|^vr", replace_missing = FALS
   result[]
 }
 
-check_result <- function(df, report, status = "ok", stop_on_failure, output, summary = NULL) {
+library(checksplanejamento)
+library(jsonlite)
+
+check_result <- function(df, report, status = "ok", stop_on_failure, output, summary = NULL, output_file = "logfile.json") {
   check_summary <- validate::summary(report)
   # check_summary is too big for reporting, need only items, passes, fails, expression
   summary <- summary %||% check_summary
@@ -67,6 +70,12 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
                    "pass" = pass)  
   } else {
     result <- valid
+  }
+  
+  # Convert result to JSON and write to file
+  if (!missing(output_file)) {
+    json_result <- jsonlite::toJSON(result, pretty = TRUE)
+    writeLines(json_result, con = output_file)
   }
   
   result
