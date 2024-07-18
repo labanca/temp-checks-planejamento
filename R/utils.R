@@ -45,7 +45,7 @@ as_accounting <- function(df, pattern = "^vlr_|^vl_|^vr", replace_missing = FALS
 library(jsonlite)
 
 # Function to process and save check result
-check_result <- function(df, report, status = "ok", stop_on_failure, output, summary = NULL, output_file = "logs/logfile.jsonl") {
+check_result <- function(df, report, status = "ok", stop_on_failure, output, output_tojson = FALSE, summary = NULL, output_file = "logs/logfile.jsonl", msg_template) {
   check_summary <- validate::summary(report)
   # check_summary is too big for reporting, need only items, passes, fails, expression
   summary <- summary %||% check_summary
@@ -61,18 +61,20 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
     info <- fail
   }
   
-  result <- list("valid" = valid, 
-                 "summary" = summary,
-                 "status" = status,
-                 "info" = info,
-                 "fail" = fail,
-                 "pass" = pass)  
+  if (output) {
+    result <- list("valid" = valid, 
+                   "summary" = summary,
+                   "status" = status,
+                   "info" = info,
+                   "fail" = fail,
+                   "pass" = pass)  
+  } else {
+    result <- valid
+  }
   
-  # Write failure messages to JSON Lines file
-  if (output && !is.null(fail)) {
-    msg_template <- "Funcional programática {programa_cod}.{acao_cod}.{funcao_cod}.{subfuncao_cod} da UO {uo_cod} com valor na base QDD Fiscal ({vlr_loa_desp}) diferente da base Açoes Planejamento do SIGPLAN ({vr_meta_orcamentaria_ano0})"
-    
-    con <- file(output_file, open = "a")
+  # Write failure messages to JSON Lines file if output_tojson is TRUE
+  if (output_tojson && !is.null(fail)) {
+    con <- file(output_file, open = "a", encoding = "UTF-8")  # Specify UTF-8 encoding
     for (i in seq_len(nrow(fail))) {
       log_entry <- list(
         message = glue_data(fail[i, ], msg_template),
@@ -80,7 +82,7 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
         timestamp = Sys.time(),
         valid = valid
       )
-      writeLines(jsonlite::toJSON(log_entry, auto_unbox = TRUE), con)
+      writeLines(jsonlite::toJSON(log_entry, auto_unbox = TRUE, pretty = TRUE), con)
     }
     close(con)
   }
