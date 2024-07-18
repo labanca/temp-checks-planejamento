@@ -71,7 +71,9 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
     result <- valid
   }
   
+  
   # Convert result to JSON and write to file
+  print(paste0("missing file:", output_file, "is_missing:", missing(output_file) ))
   if (!missing(output_file)) {
     json_result <- jsonlite::toJSON(result, pretty = TRUE)
     writeLines(json_result, con = output_file)
