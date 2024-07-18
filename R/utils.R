@@ -80,13 +80,15 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
         timestamp = Sys.time(),
         valid = valid
       )
-      writeLines(toJSON(log_entry, auto_unbox = TRUE), con)
+      writeLines(jsonlite::toJSON(log_entry, auto_unbox = TRUE), con)
     }
     close(con)
   }
   
   result
 }
+
+
 aggregate <- function(data, cols, by = NULL, rename = NULL, filter = NULL) {
   data <- as_data_table(data)
   
