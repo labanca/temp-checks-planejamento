@@ -1,4 +1,4 @@
-Package: tempchecksplanejamento
+Package: checksplanejamento
 Title: pacote temporário para testes - Validação das bases de dados do planejamento
 Version: 0.1.0
 Authors@R: 
