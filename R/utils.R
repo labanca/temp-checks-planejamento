@@ -42,7 +42,6 @@ as_accounting <- function(df, pattern = "^vlr_|^vl_|^vr", replace_missing = FALS
   result[]
 }
 
-library(checksplanejamento)
 library(jsonlite)
 
 check_result <- function(df, report, status = "ok", stop_on_failure, output, summary = NULL, output_file = "logfile.json") {

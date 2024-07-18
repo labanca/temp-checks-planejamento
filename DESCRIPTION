@@ -1,4 +1,4 @@
-Package: checksplanejamento
+Package: tempchecksplanejamento
 Title: pacote temporário para testes - Validação das bases de dados do planejamento
 Version: 0.1.0
 Authors@R: 
@@ -22,7 +22,8 @@ Imports:
   formattable,
   stringr,
   dplyr,
-  tidyr
+  tidyr,
+  logger,
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
