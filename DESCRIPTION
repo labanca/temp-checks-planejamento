@@ -1,5 +1,5 @@
 Package: tempchecksplanejamento
-Title: Validação das bases de dados do planejamento
+Title: pacote temporário para testes - Validação das bases de dados do planejamento
 Version: 0.1.0
 Authors@R: 
     person("Francisco", "Alves", , "francisco.junior@planejamento.mg.gov.br", role = c("aut", "cre"),
@@ -7,8 +7,8 @@ Authors@R:
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
         license
-URL: https://github.com/splor-mg/checks-planejamento
-BugReports: https://github.com/splor-mg/checks-planejamento/issues
+URL: https://github.com/labanca/temp-checks-planejamento
+BugReports: https://github.com/labanca/temp-checks-planejamento/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
