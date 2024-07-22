@@ -72,9 +72,9 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, out
     result <- valid
   }
   
-  # Write failure messages to JSON Lines file if output_tojson is TRUE
+  # Write failure messages as a JSON Lines file 
   if (output_tojson && !is.null(fail)) {
-    con <- file(output_file, open = "a", encoding = "UTF-8")  # Specify UTF-8 encoding
+    con <- file(output_file, open = "a", encoding = "UTF-8")  
     for (i in seq_len(nrow(fail))) {
       log_entry <- list(
         message = glue_data(fail[i, ], msg_template),
