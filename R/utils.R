@@ -82,7 +82,7 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, out
         timestamp = Sys.time(),
         valid = valid
       )
-      writeLines(jsonlite::toJSON(log_entry, auto_unbox = TRUE, pretty = TRUE), con)
+      writeLines(jsonlite::toJSON(log_entry, auto_unbox = TRUE), con)
     }
     close(con)
   }
