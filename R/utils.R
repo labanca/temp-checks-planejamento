@@ -42,7 +42,6 @@ as_accounting <- function(df, pattern = "^vlr_|^vl_|^vr", replace_missing = FALS
   result[]
 }
 
-library(jsonlite)
 
 # Function to process and save check result
 check_result <- function(df, report, status = "ok", stop_on_failure, output, output_tojson = FALSE, summary = NULL, output_file = "logs/logfile.jsonl", msg_template) {
