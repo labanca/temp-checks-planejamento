@@ -20,5 +20,5 @@ check_valores_qdd_fiscal <- function(base_qdd_fiscal, acoes_planejamento, stop_o
 
   df <- merge(x, y, by = key, all = TRUE) |> as_accounting()
   report <- df |> check_that(vlr_loa_desp == vr_meta_orcamentaria_ano0)
-  check_result(df, report, stop_on_failure = stop_on_failure, output = output, output_tojson, msg_template)
+  check_result(df, report, stop_on_failure = stop_on_failure, output = output, output_tojson = output_tojson, msg_template = msg_template)
 }
