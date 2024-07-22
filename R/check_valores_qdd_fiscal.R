@@ -5,7 +5,7 @@
 #' para o ano seguinte
 #'
 #' @export
-check_valores_qdd_fiscal <- function(base_qdd_fiscal, acoes_planejamento, stop_on_failure = FALSE, output = FALSE, output_tojson = TRUE, msg_template) {
+check_valores_qdd_fiscal <- function(base_qdd_fiscal, acoes_planejamento, stop_on_failure = FALSE, output = FALSE, output_tojson = FALSE, msg_template = "") {
   key <- c("uo_cod", "programa_cod", "acao_cod", "funcao_cod", "subfuncao_cod", "iag_cod")
 
   x <- base_qdd_fiscal |>
