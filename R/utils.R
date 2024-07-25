@@ -43,8 +43,9 @@ as_accounting <- function(df, pattern = "^vlr_|^vl_|^vr", replace_missing = FALS
 }
 
 
-# Function to process and save check result
-check_result <- function(df, report, status = "ok", stop_on_failure, output, output_tojson = FALSE, summary = NULL, output_file = "logs/logfile.jsonl", msg_template) {
+check_result <- function(df, report, status = "ok", stop_on_failure, output, summary = NULL,
+                         output_tojson = NULL, log_level = "ERROR", 
+                         msg_template = "Foram encontrados erros no teste.") {
   check_summary <- validate::summary(report)
   # check_summary is too big for reporting, need only items, passes, fails, expression
   summary <- summary %||% check_summary
@@ -71,13 +72,17 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, out
     result <- valid
   }
   
+  
+  json_outfile <- Sys.getenv("LOG_FILE", ) %||% output_tojson
+  
+  
   # Write failure messages as a JSON Lines file 
-  if (output_tojson && !is.null(fail)) {
+  if (!is.null(json_outfile) && !valid) {
     con <- file(output_file, open = "a", encoding = "UTF-8")  
     for (i in seq_len(nrow(fail))) {
       log_entry <- list(
         message = glue_data(fail[i, ], msg_template),
-        level = "error",
+        log_level = log_level,
         timestamp = Sys.time(),
         valid = valid
       )
