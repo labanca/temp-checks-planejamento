@@ -44,8 +44,9 @@ as_accounting <- function(df, pattern = "^vlr_|^vl_|^vr", replace_missing = FALS
 
 
 check_result <- function(df, report, status = "ok", stop_on_failure, output, summary = NULL,
-                         output_tojson = NULL, log_level = "ERROR", 
+                         json_outfile = NULL, log_level = "ERROR", 
                          msg_template = "Foram encontrados erros no teste.") {
+  
   check_summary <- validate::summary(report)
   # check_summary is too big for reporting, need only items, passes, fails, expression
   summary <- summary %||% check_summary
@@ -72,13 +73,15 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
     result <- valid
   }
   
+  json_file_env = {tmp <- Sys.getenv("LOG_FILE", unset = NA); if (is.na(tmp)) NULL else tmp}
   
-  json_outfile <- Sys.getenv("LOG_FILE", ) %||% output_tojson
-  
+  # prioritizes the environment var over the param
+  json_outfile <- json_file_env %||% json_outfile
   
   # Write failure messages as a JSON Lines file 
-  if (!is.null(json_outfile) && !valid) {
-    con <- file(output_file, open = "a", encoding = "UTF-8")  
+  if (json_outfile && !valid) {
+    
+    con <- file(json_outfile, open = "a", encoding = "UTF-8")  
     for (i in seq_len(nrow(fail))) {
       log_entry <- list(
         message = glue_data(fail[i, ], msg_template),
