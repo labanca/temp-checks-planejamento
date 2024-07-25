@@ -5,7 +5,8 @@
 #' para o ano seguinte
 #'
 #' @export
-check_valores_qdd_fiscal <- function(base_qdd_fiscal, acoes_planejamento, stop_on_failure = FALSE, output = FALSE, output_tojson = NULL) {
+check_valores_qdd_fiscal <- function(base_qdd_fiscal, acoes_planejamento, stop_on_failure = FALSE, 
+                                     output = FALSE, json_outfile = NULL, log_level = "ERROR") {
   key <- c("uo_cod", "programa_cod", "acao_cod", "funcao_cod", "subfuncao_cod", "iag_cod")
 
   x <- base_qdd_fiscal |>
@@ -20,5 +21,6 @@ check_valores_qdd_fiscal <- function(base_qdd_fiscal, acoes_planejamento, stop_o
 
   df <- merge(x, y, by = key, all = TRUE) |> as_accounting()
   report <- df |> check_that(vlr_loa_desp == vr_meta_orcamentaria_ano0)
-  check_result(df, report, stop_on_failure = stop_on_failure, output = output, output_tojson = output_tojson)
+  check_result(df, report, stop_on_failure = stop_on_failure, output = output, json_outfile = json_outfile, log_level = log_level)
 }
+
