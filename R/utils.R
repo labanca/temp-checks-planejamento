@@ -72,11 +72,11 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
   } else {
     result <- valid
   }
+
+  output_json_env = ifelse(Sys.getenv("LOG_FILE") == "", NULL, Sys.getenv("LOG_FILE"))
   
-  output_json_env = {tmp <- Sys.getenv("LOG_FILE", unset = NA); if (is.na(tmp)) NULL else tmp}
-  
-  # prioritizes the environment variable
-  json_filename <- output_json_env %||% json_outfile
+  # environment variable overlaps the param to write the json
+  json_outfile <- json_outfile %||% output_json_env
   
   # Write failure messages as a JSON Lines file 
   if (!is.null(json_outfile) && !valid) {
