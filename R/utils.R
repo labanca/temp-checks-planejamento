@@ -75,7 +75,7 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
   
   output_json_env = {tmp <- Sys.getenv("LOG_FILE", unset = NA); if (is.na(tmp)) NULL else tmp}
   
-  # prioritizes the environment var over the param
+  # prioritizes the environment variable
   json_filename <- output_json_env %||% json_outfile
   
   # Write failure messages as a JSON Lines file 
@@ -84,9 +84,10 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
     con <- file(json_filename, open = "a", encoding = "UTF-8")  
     for (i in seq_len(nrow(fail))) {
       log_entry <- list(
-        message = glue_data(fail[i, ], msg_template),
+        type = as.character(match.call()[[1]]),
         log_level = log_level,
         timestamp = Sys.time(),
+        message = glue_data(fail[i, ], msg_template),
         valid = valid
       )
       writeLines(jsonlite::toJSON(log_entry, auto_unbox = TRUE), con)
