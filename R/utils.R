@@ -84,7 +84,7 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
   # Write failure messages as a JSON Lines file 
   if (!is.null(json_outfile) && !valid) {
     
-    con <- file(json_filename, open = "a", encoding = "UTF-8")  
+    con <- file(json_outfile, open = "a", encoding = "UTF-8")  
     
     for (i in seq_len(nrow(fail))) {
 
