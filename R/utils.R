@@ -90,7 +90,7 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
         timestamp = Sys.time(),
         message = glue_data(fail[i, ], msg_template),
         valid = valid,
-        row = fail[i, ],
+        row = as.list(fail[i, ]),
       )
       writeLines(jsonlite::toJSON(log_entry, auto_unbox = TRUE), con)
     }
