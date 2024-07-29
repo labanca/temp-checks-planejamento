@@ -77,20 +77,21 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
   
   # environment variable overlaps the param to write the json
   json_outfile <- json_outfile %||% output_json_env
-  
+  print("HERE")
   # Write failure messages as a JSON Lines file 
   if (!is.null(json_outfile) && !valid) {
     
     con <- file(json_filename, open = "a", encoding = "UTF-8")  
     
     for (i in seq_len(nrow(fail))) {
+      print(fail[i, ], "\n")
       log_entry <- list(
         type = as.character(sys.calls()[[sys.parent()]][[1]]),
         log_level = log_level,
         timestamp = Sys.time(),
         message = glue_data(fail[i, ], msg_template),
         valid = valid,
-        as.list(fail[i, ])
+
       )
       writeLines(jsonlite::toJSON(log_entry, auto_unbox = TRUE), con)
     }
