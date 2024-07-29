@@ -73,7 +73,7 @@ check_result <- function(df, report, status = "ok", stop_on_failure, output, sum
     result <- valid
   }
 
-  output_json_env = ifelse(Sys.getenv("LOG_FILE") == "", NULL, Sys.getenv("LOG_FILE"))
+  output_json_env = if_else(Sys.getenv("LOG_FILE") == "", NULL, Sys.getenv("LOG_FILE"))
   
   # environment variable overlaps the param to write the json
   json_outfile <- json_outfile %||% output_json_env
